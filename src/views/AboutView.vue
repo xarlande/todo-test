@@ -1,11 +1,6 @@
-<script setup lang="ts">
+<template>
+    about
+</template>
+<script lang="ts" setup>
 
 </script>
-
-<template>
-  $END$
-</template>
-
-<style scoped lang="scss">
-
-</style>
