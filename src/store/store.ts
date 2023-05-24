@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 
 export default defineStore('store', () => {
   interface TodoItems {
-    id: number,
+    readonly id: number,
     title: string,
     check: boolean
   }
@@ -21,16 +21,16 @@ export default defineStore('store', () => {
       },
   ]);
 
-  const todoLength = computed<number>(() => todoItems.value.length);
+  const todoLength = computed(() => todoItems.value.length);
   const todoListNoCheck = computed(() => todoItems.value.filter((item) => item.check === false));
   const todoListCheck = computed(() => todoItems.value.filter((item) => item.check === true));
 
-  const todoRemove = (itemId: number) => {
+  const todoRemove = (itemId: number): void => {
       const findIndexItem: number = todoItems.value.findIndex((data) => data.id === itemId);
       todoItems.value.splice(findIndexItem, 1);
       // todoItems.value = todoItems.value.filter((data) => data.id !== itemId);
   };
-  const todoCheck = (itemId: number) => todoItems.value.forEach((item) => {
+  const todoCheck = (itemId: number) => todoItems.value.forEach((item): void => {
       if (item.id === itemId) {
           item.check = !item.check;
       }
