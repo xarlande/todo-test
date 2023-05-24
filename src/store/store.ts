@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ComputedRef, ref } from 'vue';
 
 export default defineStore('store', () => {
   interface TodoItems {
@@ -14,10 +14,16 @@ export default defineStore('store', () => {
           title: 'hello',
           check: false,
       },
+      {
+          id: 1,
+          title: 'hello1',
+          check: false,
+      },
   ]);
 
-  const todoLength = computed<number>(() => todoItems.value.length);
-
+  const todoLength: ComputedRef<number> = computed<number>(() => todoItems.value.length);
+  const todoListNoCheck: ComputedRef<TodoItems[]> = computed(() => todoItems.value.filter((item) => item.check === false));
+  const todoListCheck: ComputedRef<TodoItems[]> = computed(() => todoItems.value.filter((item) => item.check === true));
   const todoRemove = (item: number) => {
       todoItems.value = todoItems.value.filter((data) => data.id !== item);
   };
@@ -28,6 +34,6 @@ export default defineStore('store', () => {
   });
 
   return {
-      todoItems, todoLength, todoRemove, todoCheck,
+      todoItems, todoLength, todoRemove, todoCheck, todoListNoCheck, todoListCheck,
   };
 });
