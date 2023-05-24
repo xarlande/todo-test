@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ComputedRef, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export default defineStore('store', () => {
   interface TodoItems {
@@ -21,11 +21,14 @@ export default defineStore('store', () => {
       },
   ]);
 
-  const todoLength: ComputedRef<number> = computed<number>(() => todoItems.value.length);
-  const todoListNoCheck: ComputedRef<TodoItems[]> = computed(() => todoItems.value.filter((item) => item.check === false));
-  const todoListCheck: ComputedRef<TodoItems[]> = computed(() => todoItems.value.filter((item) => item.check === true));
-  const todoRemove = (item: number) => {
-      todoItems.value = todoItems.value.filter((data) => data.id !== item);
+  const todoLength = computed<number>(() => todoItems.value.length);
+  const todoListNoCheck = computed(() => todoItems.value.filter((item) => item.check === false));
+  const todoListCheck = computed(() => todoItems.value.filter((item) => item.check === true));
+
+  const todoRemove = (itemId: number) => {
+      const findIndexItem: number = todoItems.value.findIndex((data) => data.id === itemId);
+      todoItems.value.splice(findIndexItem, 1);
+      // todoItems.value = todoItems.value.filter((data) => data.id !== itemId);
   };
   const todoCheck = (itemId: number) => todoItems.value.forEach((item) => {
       if (item.id === itemId) {
