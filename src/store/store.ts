@@ -34,6 +34,6 @@ export default defineStore('store', () => {
   });
 
   return {
-      todoItems, todoLength, todoRemove, todoCheck, todoListNoCheck, todoListCheck,
+      todoItems, todoLength, todoListNoCheck, todoListCheck, todoRemove, todoCheck,
   };
 });
