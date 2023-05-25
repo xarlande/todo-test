@@ -1,6 +1,6 @@
 <template>
     <div class="max-width__todos mx-auto mt-4">
-        <span>Last Index: {{ todoLastIndex }}</span>
+        <span>Last Id: {{ todoLastIndex }}</span>
         <div class="p-inputgroup my-4">
             <InputText v-model="inputTitle" placeholder="Keyword" />
             <Button icon="pi pi-plus" severity="info" @click="sendTitleForStore" />
