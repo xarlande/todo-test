@@ -4,6 +4,7 @@ import TodoItems = TodoTypes.TodoItems;
 
 type State = {
   todoItems: Array<TodoItems>
+  todoLastIndex: number
 }
 
 export default defineStore('store', {
@@ -20,6 +21,7 @@ export default defineStore('store', {
                 check: false,
             },
         ],
+        todoLastIndex: 2,
     }),
     getters: {
         todoLength(state): number {
@@ -42,6 +44,14 @@ export default defineStore('store', {
                 if (item.id === itemId) {
                     item.check = !item.check;
                 }
+            });
+        },
+        todoAdd(itemTitle: string): void {
+            this.todoLastIndex += 1;
+            this.todoItems.push({
+                id: this.todoLastIndex,
+                title: itemTitle,
+                check: false,
             });
         },
     },
