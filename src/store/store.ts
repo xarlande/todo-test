@@ -4,10 +4,11 @@ import TodoItems = TodoTypes.TodoItems;
 
 type State = {
   todoItems: Array<TodoItems>
+  todoItemSelected: Array<TodoItems>
   todoLastIndex: number
 }
 
-export default defineStore('store', {
+export const useStore = defineStore('store', {
     state: (): State => ({
         todoItems: [
             {
@@ -21,6 +22,7 @@ export default defineStore('store', {
                 check: false,
             },
         ],
+        todoItemSelected: [],
         todoLastIndex: 2,
     }),
     getters: {
@@ -35,15 +37,19 @@ export default defineStore('store', {
         },
     },
     actions: {
-        todoRemove(itemId: number): void {
-            const findIndexItem: number = this.todoItems.findIndex((data) => data.id === itemId);
-            this.todoItems.splice(findIndexItem, 1);
+        todoRemove(itemArr: Array<TodoItems>): void {
+            itemArr.forEach((item) => {
+                const findIndexItem: number = this.todoItems.findIndex((data) => data.id === item.id);
+                this.todoItems.splice(findIndexItem, 1);
+            });
         },
-        todoCheck(itemId: number): void {
-            this.todoItems.forEach((item) => {
-                if (item.id === itemId) {
-                    item.check = !item.check;
-                }
+        todoCheck(itemArr: Array<TodoItems>): void {
+            itemArr.forEach((item) => {
+                this.todoItems.forEach((data) => {
+                    if (data.id === item.id) {
+                        data.check = !data.check;
+                    }
+                });
             });
         },
         todoAdd(itemTitle: string): void {
@@ -55,19 +61,6 @@ export default defineStore('store', {
             });
         },
     },
-
-    // const todoLength = computed(() => todoItems.value.length);
-    // const todoListNoCheck = computed(() => todoItems.value.filter((item) => item.check === false));
-    // const todoListCheck = computed(() => todoItems.value.filter((item) => item.check === true));
-    //
-    // const todoRemove = (itemId: number): void => {
-    //     const findIndexItem: number = todoItems.value.findIndex((data) => data.id === itemId);
-    //     todoItems.value.splice(findIndexItem, 1);
-    //     // todoItems.value = todoItems.value.filter((data) => data.id !== itemId);
-    // };
-    // const todoCheck = (itemId: number) => todoItems.value.forEach((item): void => {
-    //     if (item.id === itemId) {
-    //         item.check = !item.check;
-    //     }
-    // });
 });
+
+export default {};

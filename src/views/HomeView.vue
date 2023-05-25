@@ -5,14 +5,14 @@
         <span class="inline-block my-4">Checked: {{ todoListCheck.length }}</span>
         <HomeList :list-items="todoListCheck" />
     </div>
-
 </template>
 
 <script lang="ts" setup>
-import HomeList from '@/components/homeList.vue';
-import store from '@/store/store';
-import { toRefs } from 'vue';
+import HomeList from '@/components/newHomeList.vue';
+import { useStore } from '@/store/store';
+import { computed } from 'vue';
 
-const useTodo = store();
-const { todoListCheck, todoListNoCheck } = toRefs(useTodo);
+const store = useStore();
+const todoListCheck = computed(() => store.todoListCheck);
+const todoListNoCheck = computed(() => store.todoListNoCheck);
 </script>
